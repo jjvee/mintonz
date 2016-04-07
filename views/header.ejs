@@ -1,0 +1,263 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$('#nav ul').hide();
+		$('#nav li').mouseenter(function() {
+			$(this).children('ul').stop().show();
+		}).mouseleave(function() {
+			$(this).children('ul').stop().hide();
+		});
+
+	});
+</script>
+<style>
+	#logoSrc{ width:150px; }
+</style>
+</head>
+<body>
+	<div class="header-area">
+		<h1 class="logo">
+			<a href="#" id='mainLink'><img src="#" id="logoSrc"></a>
+		</h1>
+
+		<ul id="nav">
+			<li><a class="menuLink" href="#">대회검색<span></span></a>
+				<ul>
+					<li><a class="submenuLink" href="#" id="searchGameLink" >대회검색</a></li>
+				</ul></li>
+			<li><a class="menuLink" href="#">대회관리<span></span></a>
+				<ul>
+					<li><a class="submenuLink" href="#" id="createGameLink" >대회생성</a></li>
+					<li><a class="submenuLink" href="#" id="manageGameLink" >대회관리</a></li>
+				</ul></li>
+			<li><a class="menuLink" href="#">내진행현황<span></span></a>
+				<ul>
+					<li><a class="submenuLink" href="#" id="myGameLink">다음경기조회</a></li>
+				</ul></li>
+			<li><a class="menuLink" href="#">커뮤니티<span></span></a>
+				<ul>
+					<li><a class="submenuLink" href="#" id="noticeBoard">공지사항</a></li>
+					<li><a class="submenuLink" href="#" id="freeBoard">자유게시판</a></li>
+					<li><a class="submenuLink" href="#" id="qnaBoard">QnA</a></li>
+				</ul></li>
+			<li><img class="loginLogo" id="oauthLogin" src="#"</li>
+			<!-- <li>
+				<input type="button" id="oauthLogin" value="로그인">
+			</li> -->
+			<!-- <li>
+				<p id="userName"></p>
+			</li> -->
+		</ul>
+	</div>
+
+</body>
+
+<script>
+
+	if(location.host.charAt(0) == "1") {
+		var root = location.protocol + '//' + location.host + '/MintonzDev';
+	} else {
+		var root = location.protocol + '//' + location.host;
+	}
+	
+	// document.getElementById('logoSrc').src = root + '/images/mlogo.png';
+	document.getElementById('logoSrc').src = root + '/images/logo/mintonz_logo_white.png';
+	document.getElementById('mainLink').href = root;
+	document.getElementById('oauthLogin').src = root + '/images/naver_login_short_white.png';
+	
+	document.getElementById('createGameLink').href = root + '/game/createGame';
+	document.getElementById('searchGameLink').href = root + '/game/searchGame.php';
+	document.getElementById('manageGameLink').href = root + '/game/manageGame.php';
+	document.getElementById('myGameLink').href = root + '/game/myGameSearch.php';
+	
+	document.getElementById('noticeBoard').href = root + '/board/boardList.php?type=notice';
+	document.getElementById('freeBoard').href = root + '/board/boardList.php?type=free';
+	document.getElementById('qnaBoard').href = root + '/board/boardList.php?type=qna';
+	
+	var isLogined = false;
+
+	function overlay() {
+		el = document.getElementById("overlay");
+		el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+	}
+	
+	// dev server -> false, op server -> true
+	function isDevServer(){
+		if ( window.location.host.startsWith('127.0.0.1') )
+			return true;
+		else
+			return false;
+	}
+	
+	function getRequestUrl(state){
+		if ( isDevServer() )	//server is local
+			return 'https:' + '\/\/' +	'nid.naver.com/oauth2.0/authorize?client_id=dVr7O6D5LycZPtaiCKiw&response_type=code&redirect_uri=http://127.0.0.1/MintonzDev/login/loginDummy.html&state=' + state;
+		else 
+			return 'https:' + '\/\/' +	'nid.naver.com/oauth2.0/authorize?client_id=UiPhfWgvWmlud9HMNyoW&response_type=code&redirect_uri=http://www.mintonz.com/login/loginDummy.html&state=' + state;
+	}
+	
+	function randomString() {
+			var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+			var string_length = 8;
+			var randomstring = '';
+			for (var i=0; i<string_length; i++) {
+				var rnum = Math.floor(Math.random() * chars.length);
+				randomstring += chars.substring(rnum,rnum+1);
+			}
+			return randomstring;
+		};
+
+		function getUrlVars(url){
+			var vars = [], hash;
+		    var hashes = url.slice(url.indexOf('?') + 1).split('&');
+		    for(var i = 0; i < hashes.length; i++)
+		    {
+		        hash = hashes[i].split('=');
+		        vars.push(hash[0]);
+		        vars[hash[0]] = hash[1];
+		    }
+		    return vars;
+		};
+		
+		function get_userconfim(){
+			
+		}
+		
+		function loginFinished(userName, userEmail){
+			//$("#oauthLogin").prop('value', '로그아웃');
+			$("#oauthLogin").prop('value', userName); 
+			$("#userName").prop('value', userName + '님이 로그인 되어 있습니다.');
+			document.getElementById('oauthLogin').src = root + '/images/naver_logout_white.png';
+			isLogined = true;
+		}
+		
+		function logOutFinished(){
+			$("#oauthLogin").prop('value', '로그인');
+			$("#userName").prop('value', '로그인 하여 주세요.');
+			isLogined = false;
+			document.getElementById('oauthLogin').src = root + '/images/naver_login_short_white.png';
+			$.ajax({
+					type: "POST",
+					url: root + '/login/logout.php'
+			});
+		}
+		
+		$.oauthpopup = function(options)
+		{
+			options.windowName = options.windowName ||  'ConnectWithOAuth'; // should not include space for IE
+			options.windowOptions = options.windowOptions || 'location=0,status=0,width=800,height=400';
+			options.callback = options.callback || function(){ window.location.reload(); };
+			
+			var that = this;
+			console.log(options.path);
+			
+			that._oauthWindow = window.open(options.path, options.windowName, options.windowOptions);
+			that._oauthInterval = window.setInterval(
+				function(){
+					if ( that._oauthWindow.location.href.indexOf('http://127.0.0.1/MintonzDev/login/loginDummy.html') == 0 ){
+						options.callback(that._oauthWindow.location.search);
+						window.clearInterval(that._oauthInterval);
+						that._oauthWindow.close();
+					}
+				}, 1000);
+		};
+			
+		$('#oauthLogin').click(function(event) {
+			event.preventDefault();
+			
+			if(isLogined == true){
+				logOutFinished();
+				return;
+			}
+			
+			var state = randomString();
+			var isdevserver = isDevServer();
+		    var urltoopen = getRequestUrl(state);
+			
+			var receivedCode;
+			var receivedState;
+			$.oauthpopup({
+			    path: urltoopen,
+			    callback: function(that)
+			    {
+			        receivedCode = getUrlVars(that)["code"];
+					receivedState = getUrlVars(that)["state"];
+			        
+			        if ( state !== receivedState){
+			        	alert('state not equals');
+			        }
+			        
+			        $.ajax({
+					type: "POST",
+					url: 'login/login.php',
+					data: {
+						code : receivedCode,
+						state : receivedState,
+						server : isdevserver
+						}
+					}).done(function(responseText) {
+						parseResult = jQuery.parseJSON(responseText);
+						if ( parseResult[1] == 'TRUE' ){
+							loginFinished(parseResult.name[0], parseResult.email[0]);
+						}
+						
+						else if ( parseResult[1] == 'FALSE' ){
+							overlay();
+						}
+						
+						else{
+							console.log("parseResult[1] = " + parseResult[1]);
+							alert("로그인에 실패하였습니다.");
+						}
+							
+					}).always(function() {
+						
+					}).error(function(request,status,error){
+						console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+						alert("로그인에 실패하였습니다.");
+          			});
+				}
+			});
+		});
+		
+		$('#agree').click(function(event) {
+			$.ajax({
+				type: "POST",
+				url: 'login/loginComplete.php',
+				data: {
+					result : 'AGREE'
+				}
+				}).done(function(responseText) {
+					alert("로그인 성공");
+					parseResult = jQuery.parseJSON(responseText);
+					loginFinished(parseResult.userName,parseResult.Email);
+					overlay();						
+			}).always(function() {
+			
+			}).error(function(request,status,error){
+	    		alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		    });
+		});
+		
+		$('#disagree').click(function(event) {
+			overlay();
+			alert("로그인 취소");
+			$.ajax({
+				type: "POST",
+				url: 'login/loginComplete.php',
+				data: {
+					result : 'DISAGREE'
+				}
+			});
+			
+		});
+		
+		
+	
+</script>
+</html>

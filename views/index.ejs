@@ -1,0 +1,198 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+
+		<title>Mintonz</title>
+		<meta name="description" content="Mintonz">
+		<meta name="viewport" content="width=device-width">
+
+		<link rel="stylesheet" href="../stylesheets/reset.css">
+		<link rel="stylesheet" href="../stylesheets/layout.css">
+		<link rel="stylesheet" href="../stylesheets/unslider/unslider.css">
+		<link rel="stylesheet" href="../stylesheets/unslider/unslider-dots.css">
+
+		<script type="text/javascript" src="../javascripts/lib/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="../javascripts/lib/unslider-min.js"</script>
+
+		<script>
+			if (navigator.userAgent.match(/iPad/) == null && navigator.userAgent.match(/iPhone|Mobile|UP.Browser|Android|BlackBerry|Windows CE|Nokia|webOS|Opera Mini|SonyEricsson|opera mobi|Windows Phone|IEMobile|POLARIS/) != null) {
+				document.location.href = "indexMo.php";
+				//모바일 접속일 경우 모바일 페이지로 이동
+			} 
+
+			$(function() {
+				$('.mainPhotos').unslider({
+					autoplay : false,
+					arrows : false,
+					infinite : false
+				});
+			});
+			
+		</script>
+		
+		<style>
+			div.mainCont{display:block; margin-bottom:12px}
+			div.mainCont ul{margin-top:12px; display:inline-block;width:100%}
+			div.mainCont ul li:first-child{margin-left:0px}
+			div.mainCont ul li{float:left; margin-left:12px; width:486px; height:250px; background-color: #EBEDEF}
+			div.mainCont ul li div.mainContTitle{width:100%; height:50px; background-color:#86BCCB; color: #FFFFFF; font-size: 16px; font-weight:bold; line-height: 50px; text-align:center }
+			
+			div.mainContFull{display:block; margin-bottom:12px}
+			div.mainContFull ul{margin-top:12px; display:inline-block;width:100%}
+			div.mainContFull ul li:first-child{margin-left:0px}
+			div.mainContFull ul li{float:left; margin-left:12px; width:100%; height:250px; background-color: #EBEDEF}
+			div.mainContFull ul li div.mainContTitle{width:100%; height:50px; background-color:#86BCCB; color: #FFFFFF; font-size: 16px; font-weight:bold; line-height: 50px; text-align:center }
+			
+			div.innerCont ul{margin-top:0px; display:block;width:100%}
+			div.innerCont ul li{float: none; margin-left:0px; width:100%; height:30px}
+			div.innerCont ul li p { margin:8px; font-size:13px; display: inline-block;float:left }
+			div.innerCont ul li p a{color:#000000; text-decoration: none;}
+			
+			div.innerCont ul li p.list-title{width:73%}
+			div.innerCont ul li p.list-date{width:20%; text-align:right}
+			
+			div.innerCont ul li p.list-gameName{width:40%; text-align:center}
+			div.innerCont ul li p.list-region{width:10%; text-align:center}
+			div.innerCont ul li p.list-owner{width:10%; text-align:center}
+			div.innerCont ul li p.list-openDate{width:25%; text-align:center}
+			.title{font-weight: bold}
+			
+			#overlay {
+			     visibility: hidden;
+			     position: absolute;
+			     left: 0px;
+			     top: 0px;
+			     width:100%;
+			     height:100%;
+			     text-align:center;
+			     z-index: 1000;
+			}
+				
+			#overlay div {
+			     width:600px;
+			     height:600px;
+			     margin: 100px auto;
+			     background-color: 	rgba(24,24,24,0.5);
+			     border:1px solid #000;
+			     padding:15px;
+			     text-align:center;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrapper">
+
+			<header id="header">
+				<% include header %>
+			</header>
+
+			<div id="container">
+				<section id="contents" class="mainPage">
+
+					<header class="title">
+						<h1></h1>
+					</header>
+					
+					<div id="overlay">
+						<div>
+							  <p>이용약관<br>
+							  	잠깐 쉬는 시간 좀 가졌지, 이건 운동 후의 등목<br>
+								어떤 래퍼든 내게 까불지? 없어져 너희들의 등목<br>
+								부처인 척, 해탈한 척, 혹은 큰 형 인척하면 <br>
+								네 시체를 내 술독에 담가, 회색으로 변해 사지마 승복<br>
+								맨날 공격적이야 man 성격 대체 왜 저래<br>
+								여긴 아니야 harlem. 맞아, 임마 여긴 서울시<br>
+								경쟁서 이겨도 더럽지, 마치 비 오는 날 럭비 경기<br>
+								이 도시의 언저리 끝 언덕 위 머저리들이 지내는 허연 집이 바로 나의 정신 상태<br>
+								난 착한 것은 아냐, 음악만은 정직하게 해<br>
+								예술에 윤리라는 잣대 들이댈 거면 넌 진보하지 말고<br>
+								내 음악도 듣지 말고 닥치고 가서 집 정리나 해<br>
+								난 내 할 말은 꼭 해<br>
+								넌 딴 래퍼들과 술집에서만 숨어서 하는 말 네 음악에선 절대 못 해<br>
+								날 망치면 넌 못 돼 내가 족발이면 넌 좆 돼<br>
+								</p>
+							  <br><br><br><br><br><br>
+
+							  
+					          <button id="agree">동의합니다.</button>
+					          <button id="disagree">동의하지 않습니다.</button> 
+						</div>
+					        
+					</div>
+					
+					<article class="article-default">
+						<div class="mainPhotos">
+							<ul>
+								<!-- <li>
+									<img id="mainwallpaper" src="images/logo/mintonz_logo_black.png" />
+								</li> -->
+								<li>
+									<img id="mainwallpaper" src="../images/logo/mintonz_logo_black.png" />
+								</li>
+								<!-- <li>
+									<img id="mainwallpaper" src="images/main1.jpg" />
+								</li>
+								<li>
+									<img id="mainwallpaper" src="images/main2.jpg" />
+								</li>
+								<li>
+									<img id="mainwallpaper" src="images/main3.jpg" />
+								</li>
+								<li>
+									<img id="mainwallpaper" src="images/main4.jpg" />
+								</li> -->
+							</ul>
+						</div>
+					</article>
+				</section>
+				<br><br><br><br><br><br>
+				<section id="contents" class="mainPage">
+					
+						<article class="article-default">
+							<div class="mainContFull">
+							<h2>신규대회 정보</h2>
+							<ul>
+								<li><div class="mainContTitle"> 신규대회</div>
+									<div class="innerCont">
+										<ul>
+											<li>
+												<p class="list-gameName title">대회명</a></p>
+												<p class="list-region title">지역</p>
+												<p class="list-owner title">주최</p>
+												<p class="list-openDate title">대회기간</p>
+											</li>
+										</ul>
+									</div>
+								</li>
+							</ul>
+							</div>
+							<div class="mainCont">
+							<h2>요약정보</h2>
+							<ul>
+								
+								<li><div class="mainContTitle">공지사항</div>
+									<div class="innerCont">
+										<ul>
+										</ul>
+									</div>
+								</li>
+								<li><div class="mainContTitle">자유게시판</div>
+									<div class="innerCont">
+										<ul>
+										</ul>
+									</div>
+								</li>
+							</ul>
+						</div>
+						</article>
+					
+				</section>
+			</div>
+
+			<footer id="footer">
+				<% include footer %>	
+			</footer>
+		</div>
+	</body>
+</html>

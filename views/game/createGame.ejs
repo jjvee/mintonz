@@ -1,0 +1,185 @@
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+		<title>Mintonz</title>
+		<meta name="description" content="Mintonz">
+		<meta name="viewport" content="width=device-width">
+
+		<link rel="stylesheet" href="../stylesheets/reset.css">
+		<link rel="stylesheet" href="../stylesheets/layout.css">
+
+		<!-- jquery -->
+		<script type="text/javascript" src="../javascripts/lib/jquery-1.11.3.min.js"></script>
+
+		<style>
+			.ui-datepicker {
+				font-size: 13px;
+				width: 200px;
+			}
+		</style>
+
+		<script>
+			$(function() {
+				// $("#beginDate").datepicker({ dateFormat : "yy-mm-dd" });
+				// $("#endDate").datepicker({ dateFormat : "yy-mm-dd" });
+				
+				// $('#createGameSuccess').click(function(event) {
+				// 	event.preventDefault();
+					
+				// 	var formData = new FormData($('form')[0]);
+					
+				// 	$.ajax({
+				// 		type : 'POST',
+				// 		url : 'createGameProc',
+				// 		data : formData,
+				// 		contentType: false,
+				// 		processData: false,
+				// 	}).done(function(responseText) {
+				// 		if (responseText.substring(0,4) == "game") {
+				// 			alert("대회 생성이 완료 되었습니다");
+				// 			location.href = "gameMain.php?gameId=" + responseText;
+				// 		} else {
+				// 			alert(responseText + "hello");
+				// 		}
+				// 	}).always(function() {
+
+				// 	}).error(function(request, status, error) {
+				// 		alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+				// 	});
+				// });
+			});
+		</script>
+		
+		<style>
+			table#createGameTable{width:100%}
+			table#createGameTable tr td{ width:600px;}
+			table#createGameTable tr td:first-child{ width: 50px;}
+			table#createGameTable tr td input{ width:210px;}
+			table#createGameTable tr td input#gameName{ width:500px;}
+			table#createGameTable tr td input#class{ width:100px;}
+			table#createGameTable tr td input#gameType{ width:10px;}
+			
+		</style>
+
+	</head>
+
+	<body>
+
+		<div id="wrapper">
+			<header id="header">
+				<% include ../header %>
+			</header>
+
+			<div id="container">
+				<section id="contents" class="mainPage">
+					<header class="title">
+						<h1>신규대회 생성</h1>
+						<br>
+					</header>
+					<article class="article-default">
+						<form method="POST" action="createGameProc">
+							<table id="createGameTable">
+								<tr>
+									<td>대회명</td>
+									<td>
+										<input type="text" id="gameName" name="gameName">
+									</td>
+								</tr>
+								<tr>
+									<td>지역</td>
+									<td>
+										<input type="text" id="region" name="region">
+									</td>
+								</tr>
+								<tr>
+									<td>개최자</td>
+									<td>
+										<input type="text" id="owner" name="owner">
+									</td>
+								</tr>
+								<tr>
+									<td>참가비</td>
+									<td>
+										<input type="number" id="entryFee" name="entryFee">
+									</td>
+								</tr>
+								<tr>
+									<td>시작일</td>
+									<td>
+										<input type="date" id="beginDate" name="beginDate">
+									</td>
+								</tr>
+								<tr>
+									<td>종료일</td>
+									<td>
+										<input type="date" id="endDate" name="endDate">
+									</td>
+								</tr>
+								<tr>
+									<td>참가부</td>
+									<td>
+										<input type="text" id="class" name="class1"/>
+										<input type="text" id="class" name="class2"/>
+										<input type="text" id="class" name="class3"/>
+										<input type="text" id="class" name="class4"/>
+										<input type="text" id="class" name="class5"/>
+										<input type="text" id="class" name="class6"/>
+										<input type="text" id="class" name="class7"/>
+									</td>
+								</tr>
+								<tr>
+									<td>참가급</td>
+									<td>
+										<input type="text" id="class" name="level1"/>
+										<input type="text" id="class" name="level2"/>
+										<input type="text" id="class" name="level3"/>
+										<input type="text" id="class" name="level4"/>
+										<input type="text" id="class" name="level5"/>
+										<input type="text" id="class" name="level6"/>
+										<input type="text" id="class" name="level7"/>
+									</td>
+								</tr>
+								<tr>
+									<td>게임유형</td>
+									<td>
+									<div class="checkboxes">
+										<label>
+											<input type="checkbox" id="gameType" name="type1" value="남" />
+											남</label>
+										<label>
+											<input type="checkbox" id="gameType" name="type2" value="여" />
+											여</label>
+										<label>
+											<input type="checkbox" id="gameType" name="type3" value="혼복" />
+											혼복</labe>
+									</div></td>
+								</tr>
+								<tr>
+									<td>포스터</td>
+									<td>
+									<input type="file" id="userfile" name="userfile" />
+									<input type="hidden" name="MAX_FILE_SIZE" value="524288" />
+									</td>
+								</tr>
+							</table>
+							<br>
+							<input type="submit" id="createGameSuccess" value="대회생성">
+							<br>
+							</td>
+						</form>
+
+					</article>
+				</section>
+			</div>
+
+			<footer id="footer">
+				<% include ../footer %>
+			</footer>
+
+		</div>
+
+	</body>
+
+</html>
